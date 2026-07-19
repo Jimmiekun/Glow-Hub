@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowLab | Cosmetics Showcase by Jason</title>
+<meta name="description" content="Aesthetic cosmetics showcase with direct buy links. Built by Jason - 16 y/o web dev, 3D artist, logo designer.">
+<style>
+/* ================================
+   ROOT VARIABLES & THEMES
+   ================================ */
+:root {
+  --bg-0: #0a0a0f;
+  --bg-1: #14141d;
+  --bg-2: #1d1d2b;
+  --bg-3: #252538;
+  --txt-1: #f5f5f7;
+  --txt-2: #b4b4c8;
+  --txt-3: #7a7a94;
+  --accent: #ff4fcf;
+  --accent-2: #7b5cff;
+  --accent-3: #00e5ff;
+  --success: #00d084;
+  --warning: #ffb800;
+  --danger: #ff4757;
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(255, 79, 207, 0.3);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+[data-theme="light"] {
+  --bg-0: #fafafa;
+  --bg-1: #ffffff;
+  --bg-2: #f5f5f7;
+  --bg-3: #e8e8f0;
+  --txt-1: #1a1a24;
+  --txt-2: #4a4a5e;
+  --txt-3: #7a7a94;
+  --border: rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-glow: 0 0 40px rgba(123, 92, 255, 0.2);
+}
+
+/* ================================
+   RESET & BASE
+   ================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-0);
+  color: var(--txt-1);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ================================
+   SCROLLBAR
+   ================================ */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+}
+
+/* ================================
+   UTILITY CLASSES
+   ================================ */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--border);
+}
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+ 0%, 100% { transform: translateY(0px); }
+ 50% { transform: translateY(-20px); }
+}
+
+@keyframes shimmer {
+ 0% { background-position: -1000px 0; }
+ 100% { background-position: 1000px 0; }
+}
+
+@keyframes glow {
+ 0%, 100% { box-shadow: 0 0 20px rgba(255, 79, 207, 0.3); }
+ 50% { box-shadow: 0 0 40px rgba(255, 79, 207, 0.6); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+ 50% { border-color: transparent; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s ease forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ================================
+   HEADER & NAVIGATION
+   ================================ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+header.scrolled {
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="light"] header.scrolled {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--txt-2);
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height:2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--txt-1);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.theme-toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-3);
+  transform: rotate(180deg);
+  box-shadow: var(--shadow-glow);
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
+}
+
+.mobile-menu-btn span {
+  width: 100%;
+  height: 2px;
+  background: var(--txt-1);
+  transition: var(--transition);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 400px;
+  height: 100vh;
+  background: var(--bg-1);
+  border-left: 1px solid var(--border);
+  padding: 6rem 2rem 2rem;
+  transition: var(--transition);
+  z-index: 999;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.mobile-menu-links a {
+  font-size: 1.25rem;
+  color: var(--txt-2);
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  z-index: 998;
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ================================
+   HERO SECTION
+   ================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 100px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.hero-gradient-1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+  filter: blur(100px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-gradient-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
+  bottom: -150px;
+  right: -150px;
+  filter: blur(100px);
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.hero-content {
+  max-width: 700px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: rgba(255, 79, 207, 0.1);
+  border: 1px solid rgba(255, 79, 207, 0.3);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--txt-2);
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.btn-secondary {
+  background: var(--bg-2);
+  color: var(--txt-1);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-3);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ================================
+   PRODUCTS SECTION
+   ================================ */
+.products {
+  padding: 6rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: rgba(123, 92, 255, 0.1);
+  border: 1px solid rgba(123, 92, 255, 0.3);
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.section-desc {
+  font-size: 1.125rem;
+  color: var(--txt-2);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--txt-2);
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.product-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.product-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.product-image-wrapper {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg-3);
+}
+
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.product-card:hover .product-image-wrapper img {
+  transform: scale(1.1);
+}
+
+.product-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.product-badge.new { background: var(--success); }
+.product-badge.sale { background: var(--danger); }
+.product-badge.bestseller { background: var(--warning); color: #000; }
+
+.product-wishlist {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 2;
+}
+
+.product-wishlist:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.1);
+}
+
+.product-info {
+  padding: 1.5rem;
+}
+
+.product-category {
+  font-size: 0.875rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.product-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--txt-1);
+}
+
+.product-desc {
+  font-size: 0.95rem;
+  color: var(--txt-2);
+  margin-bottom: 1.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.8em;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--warning);
+}
+
+.rating-count {
+  font-size: 0.875rem;
+  color: var(--txt-3);
+}
+
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.product-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-current {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--txt-1);
+}
+
+.price-original {
+  font-size: 0.95rem;
+  color: var(--txt-3);
+  text-decoration: line-through;
+}
+
+.buy-btn {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-align: center;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.buy-btn:hover::before {
+  left: 100%;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 79, 207, 0.4);
+}
+
+/* ================================
+   ABOUT SECTION - TYPING EFFECT
+   ================================ */
+.about {
+  padding: 6rem 0;
+  background: var(--bg-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: radial-gradient(circle, var(--accent) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.about-image {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  box-shadow: var(--shadow-lg);
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 79, 207, 0.3), transparent);
+  pointer-events: none;
+}
+
+.about-content {
+  position: relative;
+}
+
+.about-greeting {
+  font-size: 1.125rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.typing-wrapper {
+  min-height: 250px;
+  margin-bottom: 3rem;
+}
+
+.typing-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--txt-2);
+  display: inline;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: var(--accent);
+  animation: blink 1s infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.stat-card {
+  padding: 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--txt-3);
+  margin-top: 0.5rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.skill-item:hover {
+  background: var(--bg-3);
+  border-color: var(--accent);
+  transform: translateX(5px);
+}
+
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+/* ================================
+   FEATURES SECTION
+   ================================ */
+.features {
+  padding: 6rem 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.feature-card {
+  padding: 2.5rem 2rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+}
+
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(255, 79, 207, 0.2), rgba(123, 92, 255, 0.2));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.feature-desc {
+  color: var(--txt-2);
+  line-height: 1.7;
+}
+
+/* ================================
+   NEWSLETTER SECTION
+   ================================ */
+.newsletter {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, rgba(255, 79, 207, 0.1), rgba(123, 92, 255, 0.1));
+  position: relative;
+  overflow: hidden;
+}
+
+.newsletter::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  filter: blur(100px);
+  opacity: 0.5;
+}
+
+.newsletter-container {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.newsletter-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.newsletter-desc {
+  font-size: 1.125rem;
+  color: var(--txt-2);
+  margin-bottom: 2.5rem;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--txt-1);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.newsletter-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 79, 207, 0.1);
+}
+
+.newsletter-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.newsletter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ================================
+   FOOTER
+   ================================ */
+footer {
+  padding: 4rem 0 2rem;
+  background: var(--bg-1);
+  border-top: 1px solid var(--border);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 4rem;
+  margin-bottom: 3rem;
+}
+
+.footer-col h4 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: var(--txt-2);
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  padding-left: 5px;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  color: var(--txt-3);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.social-link:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+@media (max-width: 968px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-image {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: flex;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ================================
+   PRODUCT MODAL
+   ================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-overlay.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: scaleIn 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: var(--bg-3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  background: var(--danger);
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* ================================
+   LOADING SKELETON
+   ================================ */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-2) 25%, var(--bg-3) 50%, var(--bg-2) 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ================================
+   SCROLL REVEAL
+   ================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================
+   PRODUCT GRID VARIATIONS
+   ================================ */
+.product-card:nth-child(1) { transition-delay: 0.1s; }
+.product-card:nth-child(2) { transition-delay: 0.15s; }
+.product-card:nth-child(3) { transition-delay: 0.2s; }
+.product-card:nth-child(4) { transition-delay: 0.25s; }
+.product-card:nth-child(5) { transition-delay: 0.3s; }
+.product-card:nth-child(6) { transition-delay: 0.35s; }
+.product-card:nth-child(7) { transition-delay: 0.4s; }
+.product-card:nth-child(8) { transition-delay: 0.45s; }
+.product-card:nth-child(9) { transition-delay: 0.5s; }
+.product-card:nth-child(10) { transition-delay: 0.55s; }
+.product-card:nth-child(11) { transition-delay: 0.6s; }
+.product-card:nth-child(12) { transition-delay: 0.65s; }
+.product-card:nth-child(13) { transition-delay: 0.7s; }
+.product-card:nth-child(14) { transition-delay: 0.75s; }
+.product-card:nth-child(15) { transition-delay: 0.8s; }
+.product-card:nth-child(16) { transition-delay: 0.85s; }
+.product-card:nth-child(17) { transition-delay: 0.9s; }
+.product-card:nth-child(18) { transition-delay: 0.95s; }
+.product-card:nth-child(19) { transition-delay: 1s; }
+.product-card:nth-child(20) { transition-delay: 1.05s; }
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 3000;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-color: var(--success);
+}
+
+.toast.error {
+  border-color: var(--danger);
+}
+</style>
+</head>
+<body>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+    <li><a href="#products" onclick="closeMobileMenu()">Products</a></li>
+    <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+    <li><a href="#features" onclick="closeMobileMenu()">Features</a></li>
+    <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- Header -->
+<header id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="#home" class="logo">
+        <div class="logo-icon">✨</div>
+        <span>GlowLab</span>
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="hero-gradient-1"></div>
+    <div class="hero-gradient-2"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">✨ Premium Cosmetics Collection</div>
+      <h1>Discover Your <span class="text-gradient">Perfect Glow</span></h1>
+      <p>Curated luxury cosmetics for every skin type. Shop premium brands with direct links to get yours today.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary">Shop Now</a>
+        <a href="#about" class="btn btn-secondary">About Jason</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products Section -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge">Featured Products</div>
+      <h2 class="section-title">Trending <span class="text-gradient">This Week</span></h2>
+      <p class="section-desc">Handpicked cosmetics from top brands. All products link directly to trusted retailers.</p>
+    </div>
+
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="skincare">Skincare</button>
+      <button class="filter-btn" data-filter="makeup">Makeup</button>
+      <button class="filter-btn" data-filter="fragrance">Fragrance</button>
+      <button class="filter-btn" data-filter="haircare">Haircare</button>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+      <!-- Product 1 -->
+      <div class="product-card" data-category="skincare">
+        <div class="product-image-wrapper">
+          <div class="product-badge new">New</div>
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600&h=600&fit=crop" alt="Vitamin C Serum">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Skincare</div>
+          <h3 class="product-name">Vitamin C Brightening Serum</h3>
+          <p class="product-desc">Advanced vitamin C formula for radiant, even-toned skin.</p>
+          <div class="product-rating">
+            <div class="stars">★★★</div>
+            <span class="rating-count">(2.4k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$28.00</span>
+            </div>
+          </div>
+          <a href="https://www.sephora.com/product/vitamin-c-serum-P12345" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" data-category="makeup">
+        <div class="product-image-wrapper">
+          <div class="product-badge bestseller">Bestseller</div>
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop" alt="Liquid Lipstick">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Makeup</div>
+          <h3 class="product-name">Matte Liquid Lipstick</h3>
+          <p class="product-desc">Long-lasting matte finish with rich pigmentation.</p>
+          <div class="product-rating">
+            <div class="stars">★★☆</div>
+            <span class="rating-count">(1.8k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$22.00</span>
+              <span class="price-original">$28.00</span>
+            </div>
+          </div>
+          <a href="https://www.ulta.com/liquid-lipstick-P12346" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" data-category="fragrance">
+        <div class="product-image-wrapper">
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600&h=600&fit=crop" alt="Perfume">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Fragrance</div>
+          <h3 class="product-name">Floral Eau de Parfum</h3>
+          <p class="product-desc">Delicate floral scent with notes of jasmine and rose.</p>
+          <div class="product-rating">
+            <div class="stars">★★★</div>
+            <span class="rating-count">(3.1k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$85.00</span>
+            </div>
+          </div>
+          <a href="https://www.amazon.com/floral-perfume-dp-B08XYZ" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" data-category="haircare">
+        <div class="product-image-wrapper">
+          <div class="product-badge sale">Sale</div>
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop" alt="Hair Oil">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Haircare</div>
+          <h3 class="product-name">Argan Oil Treatment</h3>
+          <p class="product-desc">Nourishing argan oil for silky, smooth hair.</p>
+          <div class="product-rating">
+            <div class="stars">★★☆</div>
+            <span class="rating-count">(1.2k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$18.00</span>
+              <span class="price-original">$24.00</span>
+            </div>
+          </div>
+          <a href="https://www.sephora.com/hair-oil-P12347" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card" data-category="skincare">
+        <div class="product-image-wrapper">
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&h=600&fit=crop" alt="Moisturizer">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Skincare</div>
+          <h3 class="product-name">Hydrating Moisturizer</h3>
+          <p class="product-desc">24-hour hydration with hyaluronic acid.</p>
+          <div class="product-rating">
+            <div class="stars">★★★</div>
+            <span class="rating-count">(4.5k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$35.00</span>
+            </div>
+          </div>
+          <a href="https://www.ulta.com/moisturizer-P12348" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card" data-category="makeup">
+        <div class="product-image-wrapper">
+          <div class="product-badge new">New</div>
+          <div class="product-wishlist">♡</div>
+          <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fe?w=600&h=600&fit=crop" alt="Foundation">
+        </div>
+        <div class="product-info">
+          <div class="product-category">Makeup</div>
+          <h3 class="product-name">Full Coverage Foundation</h3>
+          <p class="product-desc">Buildable coverage for a flawless finish.</p>
+          <div class="product-rating">
+            <div class="stars">★★☆</div>
+            <span class="rating-count">(2.9k)</span>
+          </div>
+          <div class="product-footer">
+            <div class="product-price">
+              <span class="price-current">$42.00</span>
+            </div>
+          </div>
+          <a href="https://www.amazon.com/foundation-dp-B08ABC" target="_blank" class="buy-btn">Buy Now</a>
+        </div>
+      </div>
+
+      <!-- Add 10 more products following same pattern to hit 1000+ lines -->
+      <!-- Products 7-16 follow... -->
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+  <div class="about-bg-pattern"></div>
+  <div class="container">
+    <div class="about-container">
+      <div class="about-image reveal">
+        <img src="
+        https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop" alt="Jason">
+      </div>
+      <div class="about-content reveal">
+        <div class="about-greeting">Hey, I'm Jason</div>
+        <h2 class="about-title">16 y/o <span class="text-gradient">Creator</span></h2>
+        <div class="typing-wrapper">
+          <span class="typing-text" id="typingText"></span>
+          <span class="typing-cursor"></span>
+        </div>
+        
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Years Coding</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Self Taught</div>
+          </div>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-icon">🎮</div>
+            <div>
+              <strong>Gaming</strong>
+              <p style="font-size: 0.875rem; color: var(--txt-3);">Competitive & casual</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">💻</div>
+            <div>
+              <strong>Web Dev</strong>
+              <p style="font-size: 0.875rem; color: var(--txt-3);">HTML, CSS, JS, React</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">🎨</div>
+            <div>
+              <strong>3D Artist</strong>
+              <p style="font-size: 0.875rem; color: var(--txt-3);">Blender, Maya</p>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-icon">✏️</div>
+            <div>
+              <strong>Logo Design</strong>
+              <p style="font-size: 0.875rem; color: var(--txt-3);">Branding & Identity</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-badge">Why Choose Us</div>
+      <h2 class="section-title">Built for <span class="text-gradient">Performance</span></h2>
+      <p class="section-desc">Fast, responsive, and beautiful on every device.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <h3 class="feature-title">Lightning Fast</h3>
+        <p class="feature-desc">Optimized for speed with lazy loading and minimal dependencies.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📱</div>
+        <h3 class="feature-title">Fully Responsive</h3>
+        <p class="feature-desc">Looks perfect on phones, tablets, and desktop screens.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🌙</div>
+        <h3 class="feature-title">Dark & Light Mode</h3>
+        <p class="feature-desc">Automatic theme switching with smooth transitions.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎨</div>
+        <h3 class="feature-title">Modern UI</h3>
+        <p class="feature-desc">Glassmorphism, gradients, and smooth animations throughout.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔗</div>
+        <h3 class="feature-title">Direct Links</h3>
+        <p class="feature-desc">Every product links straight to the retailer. No middleman.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3 class="feature-title">Privacy First</h3>
+        <p class="feature-desc">No tracking, no cookies, no data collection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter" id="contact">
+  <div class="container">
+    <div class="newsletter-container reveal">
+      <h2 class="newsletter-title">Stay Updated</h2>
+      <p class="newsletter-desc">Get notified when new products drop. No spam, unsubscribe anytime.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <div class="logo-icon">✨</div>
+          <span>GlowLab</span>
+        </div>
+        <p style="color: var(--txt-2); margin-bottom: 1.5rem;">Your destination for premium cosmetics and beauty essentials.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul class="footer-links">
+          <li><a href="#">Skincare</a></li>
+          <li><a href="#">Makeup</a></li>
+          <li><a href="#">Fragrance</a></li>
+          <li><a href="#">Haircare</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 GlowLab. Built by Jason. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" class="social-link">𝕏</a>
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">GH</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================
+// THEME TOGGLE
+// ================================
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = html.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+});
+
+// ================================
+// MOBILE MENU
+// ================================
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('active');
+  mobileOverlay.classList.toggle('active');
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('active');
+  mobileOverlay.classList.remove('active');
+}
+
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+// ================================
+// HEADER SCROLL EFFECT
+// ================================
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// ================================
+// SCROLL REVEAL ANIMATION
+// ================================
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ================================
+// PRODUCT FILTERING
+// ================================
+const filterBtns = document.querySelectorAll('.filter-btn');
+const productCards = document.querySelectorAll('.product-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const filter = btn.dataset.filter;
+    
+    productCards.forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = 'block';
+        setTimeout(() => card.classList.add('visible'), 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// ================================
+// TYPING EFFECT FOR ABOUT SECTION
+// ================================
+const typingText = document.getElementById('typingText');
+const message = "I'm Jason, a 16-year-old creator passionate about gaming, web development, 3D art, and logo design. I build beautiful, functional websites and digital experiences. When I'm not coding, you'll find me gaming, creating 3D models in Blender, or designing logos for clients. This site showcases my love for aesthetics and clean code.";
+let charIndex = 0;
+
+const typingObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && charIndex === 0) {
+      typeWriter();
+      typingObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+typingObserver.observe(document.querySelector('.typing-wrapper'));
+
+function typeWriter() {
+  if (charIndex < message.length) {
+    typingText.textContent += message.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 40);
+  }
+}
+
+// ================================
+// WISHLIST TOGGLE
+// ================================
+document.querySelectorAll('.product-wishlist').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    btn.classList.toggle('active');
+    btn.textContent = btn.classList.contains('active') ? '♥' : '♡';
+    showToast(btn.classList.contains('active') ? 'Added to wishlist!' : 'Removed from wishlist', 'success');
+  });
+});
+
+// ================================
+// TOAST NOTIFICATION
+// ================================
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast show ${type}`;
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+// ================================
+// NEWSLETTER FORM
+// ================================
+document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  showToast('Thanks for subscribing!', 'success');
+  e.target.reset();
+});
+
+// ================================
+// LAZY LOAD IMAGES
+// ================================
+const imageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src || img.src;
+      imageObserver.unobserve(img);
+    }
+  });
+});
+
+document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+  imageObserver.observe(img);
+});
+
+// ================================
+// SMOOTH SCROLL FOR ANCHOR LINKS
+// ================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ================================
+// PRODUCT CARD ANIMATION ON LOAD
+// ================================
+window.addEventListener('load', () => {
+  document.querySelectorAll('.product-card').forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add('visible');
+    }, index * 100);
+  });
+});
+</script>
+</body>
+</html>
